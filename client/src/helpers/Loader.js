@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles, { keyframes } from 'styled-components';
 const LoaderDiv = styles.div`
 margin:0 auto;

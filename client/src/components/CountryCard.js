@@ -13,23 +13,23 @@ text-align:center;
 height:100%;
 `;
 
-export default function CountryCard({ data }) {
-  const Logo = styles.div`
+const Logo = styles.div`
 text-align:center;
 height:10rem;
 width:10rem;
 display:grid;
 place-items:center;
-background:url(${data.countryInfo ? data.countryInfo.flag : ''});
+background:url(${(props) => props.url});
 background-repeat: no-repeat;
 background-position:center;
 background-size:cover;
 border-radius:50%;
 `;
+export default function CountryCard({ data }) {
   return (
     <React.Fragment>
       <Container>
-        <Logo>
+        <Logo url={data.countryInfo ? data.countryInfo.flag : ''}>
           <h1>{data.country}</h1>
         </Logo>
         <DataDiv>

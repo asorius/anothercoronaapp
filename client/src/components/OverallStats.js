@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PieCharts from './PieCharts';
-import styles, { keyframes } from 'styled-components';
+import styles from 'styled-components';
 import Loader from '../helpers/Loader';
 const Div = styles.div`
 margin:0 auto;
