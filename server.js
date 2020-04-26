@@ -5,6 +5,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const port = 3001;
+app.get('/api/stats', async (req, res) => {
+  try {
+    const { data } = await axios.get(
+      'https://api.thevirustracker.com/free-api?global=stats'
+    );
+    res.send({ data });
+  } catch (e) {
+    console.log({ e });
+  }
+});
 app.get('/api/:id', async (req, res) => {
   try {
     const id = req.params.id;

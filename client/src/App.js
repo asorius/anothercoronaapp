@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 import CountryCard from './components/CountryCard';
 import SearchInput from './components/SearchInput';
 import Charts from './components/Charts';
+import OverallStats from './components/OverallStats';
+import Loader from './helpers/Loader';
+import './index.css';
 //image https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80
 function App() {
   const [data, updateData] = useState(null);
   const [timeline, setTimeline] = useState(null);
   const [country, setCountry] = useState(null);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(false);
   const updateCountry = (input) => {
-    console.log(input);
     setCountry(input);
+    setLoading(true);
   };
   useEffect(() => {
     console.log('Effect iniated');
@@ -24,13 +29,27 @@ function App() {
             `http://localhost:3001/api/history/${overallData.country}`
           );
           const { data: history } = await fetchedHistory.json();
+
           setTimeline(history.timeline);
           updateData(overallData);
+          setLoading(false);
         } catch (e) {
           console.log(e);
         }
       };
       getData();
+    } else {
+      const getStats = async () => {
+        try {
+          const fetchedstats = await fetch(`http://localhost:3001/api/stats`);
+          const { data: stats } = await fetchedstats.json();
+          console.log(stats.results[0]);
+          setStats(stats.results[0]);
+        } catch (e) {
+          console.log({ statseror: e });
+        }
+      };
+      getStats();
     }
   }, [country]);
   return (
@@ -40,12 +59,16 @@ function App() {
     >
       <SearchInput onclick={updateCountry}></SearchInput>
 
-      {data && timeline && country ? (
+      {loading ? (
+        <Loader></Loader>
+      ) : !loading && data && timeline && country ? (
         <React.Fragment>
           <CountryCard data={data}></CountryCard>
           <Charts data={timeline}></Charts>
         </React.Fragment>
-      ) : null}
+      ) : (
+        <OverallStats data={stats}></OverallStats>
+      )}
     </div>
   );
 }

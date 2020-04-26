@@ -32,3 +32,15 @@ describe('/Get api/history/name', () => {
       });
   });
 });
+describe('/GET api/stats', () => {
+  it('exptected to return status of ok', (done) => {
+    chai
+      .request(server)
+      .get('/api/stats')
+      .end((error, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.data.stat).to.be.equal('ok');
+        done();
+      });
+  });
+});
