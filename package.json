@@ -7,7 +7,7 @@
     "test": "mocha",
     "server": "nodemon server.js",
     "server-dev": "node server.js",
-    "front": "npm start --prefix frontend/front",
+    "front": "npm start --prefix client",
     "dev": "concurrently \"npm run server-dev\" \"npm run front\""
   },
   "author": "",

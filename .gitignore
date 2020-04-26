@@ -1,4 +1,4 @@
 
 # dependencies
-/node_modules
-/frontend/front/node_modules
+/node_modules/
+/client/node_modules/
