@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import list from '../helpers/list';
 import styled from 'styled-components';
-import scheme from '../helpers/colorScheme';
-const fontSize = '1.5rem';
+import scheme from '../helpers/styleScheme';
 const InputContainer = styled.div`
   width: 50%;
   margin: 0 auto;
@@ -26,7 +25,7 @@ const Input = styled.input`
   width: 90%;
   margin: 0.5rem 0 0.5rem;
   padding: 0.75rem;
-  font-size: ${fontSize};
+  font-size: ${scheme.fontSizeInput};
   border: none;
   background: transparent;
   &:active,
@@ -38,7 +37,7 @@ const Label = styled.label`
   z-index: -1;
   color: grey;
   cursor: text;
-  font-size: ${fontSize};
+  font-size: ${scheme.fontSizeInput};
   padding: 0.25rem;
   position: absolute;
   transform-origin: top left;

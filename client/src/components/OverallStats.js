@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PieCharts from './PieCharts';
 import styles from 'styled-components';
-import Loader from '../helpers/Loader';
+import Loader from './Loader';
+import Count from 'react-countup';
 const Div = styles.div`
 margin:0 auto;
 width:50%;
@@ -30,9 +31,33 @@ export default function OverallStats({ data }) {
           <Div>
             <h4>World wide stats: </h4>
 
-            <p>CASES: {stats.total_cases.toLocaleString('en-GB')}</p>
-            <p>RECOVERED: {stats.total_recovered.toLocaleString('en-GB')}</p>
-            <p>DEATHS: {stats.total_deaths.toLocaleString('en-GB')}</p>
+            <p>
+              CASES:{' '}
+              <Count
+                start={0}
+                end={stats.total_cases}
+                duration={1}
+                separator=","
+              />
+            </p>
+            <p>
+              RECOVERED:{' '}
+              <Count
+                start={0}
+                end={stats.total_recovered}
+                duration={1}
+                separator=","
+              />
+            </p>
+            <p>
+              DEATHS:{' '}
+              <Count
+                start={0}
+                end={stats.total_deaths}
+                duration={1}
+                separator=","
+              />
+            </p>
           </Div>
           <PieCharts
             data={{
@@ -46,11 +71,21 @@ export default function OverallStats({ data }) {
             <h4>Todays stats: </h4>
             <p>
               NEW CASES TODAY:{' '}
-              {stats.total_new_cases_today.toLocaleString('en-GB')}
+              <Count
+                start={0}
+                end={stats.total_new_cases_today}
+                duration={1}
+                separator=","
+              />
             </p>
             <p>
               NEW DEATHS TODAY:{' '}
-              {stats.total_new_deaths_today.toLocaleString('en-GB')}
+              <Count
+                start={0}
+                end={stats.total_new_deaths_today}
+                duration={1}
+                separator=","
+              />
             </p>
           </Div>
         </Container>

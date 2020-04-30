@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from 'styled-components';
+import Count from 'react-countup';
 const Container = styles.div`
 text-align:center;
 display:flex;
@@ -33,21 +34,54 @@ export default function CountryCard({ data }) {
           <h1>{data.country}</h1>
         </Logo>
         <DataDiv>
-          <h3>Total cases: {data.cases}</h3>
-          <h3>New cases today: {data.todayCases}</h3>
+          <h3>
+            Total cases:{' '}
+            <Count start={0} end={data.cases} duration={1} separator="," />
+          </h3>
+          <h3>
+            New cases today:{' '}
+            <Count start={0} end={data.todayCases} duration={1} separator="," />
+          </h3>
         </DataDiv>
         <DataDiv>
-          <h3>Total recovered: {data.recovered}</h3>
+          <h3>
+            Total recovered:{' '}
+            <Count start={0} end={data.recovered} duration={1} separator="," />
+          </h3>
           <p>
             Recover percentage:{' '}
-            {((data.recovered * 100) / data.cases).toFixed(2)} %
+            <Count
+              start={0}
+              end={((data.recovered * 100) / data.cases).toFixed(2)}
+              duration={1}
+              separator=","
+            />
+            %
           </p>
         </DataDiv>
         <DataDiv>
-          <h3>Total deaths: {data.deaths}</h3>
-          <h3>New deaths today: {data.todayDeaths}</h3>
+          <h3>
+            Total deaths:{' '}
+            <Count start={0} end={data.deaths} duration={1} separator="," />
+          </h3>
+          <h3>
+            New deaths today:{' '}
+            <Count
+              start={0}
+              end={data.todayDeaths}
+              duration={1}
+              separator=","
+            />
+          </h3>
           <p>
-            Death percentage: {((data.deaths * 100) / data.cases).toFixed(2)} %
+            Death percentage:{' '}
+            <Count
+              start={0}
+              end={((data.deaths * 100) / data.cases).toFixed(2)}
+              duration={1}
+              separator=","
+            />{' '}
+            %
           </p>
         </DataDiv>
         <br></br>

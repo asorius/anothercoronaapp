@@ -3,9 +3,8 @@ import CountryCard from './components/CountryCard';
 import SearchInput from './components/SearchInput';
 import Charts from './components/Charts';
 import OverallStats from './components/OverallStats';
-import Loader from './helpers/Loader';
+import Loader from './components/Loader';
 import './index.css';
-//image https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80
 function App() {
   const [data, updateData] = useState(null);
   const [timeline, setTimeline] = useState(null);
