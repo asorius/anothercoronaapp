@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import list from '../helpers/list';
+import { list, scheme, SelectionList } from '../utils';
 import styled from 'styled-components';
-import scheme from '../helpers/styleScheme';
 const InputContainer = styled.div`
   width: 50%;
   margin: 0 auto;
@@ -73,11 +72,9 @@ export default function SearchInput({ onclick }) {
       const possibleCountries = Object.entries(list).filter((combination) => {
         if (input === 'britain' || input === 'uk' || input === 'gb') {
           return combination[1].toLocaleLowerCase().includes('britain');
-        } else if (input.includes('ireland')) {
-          return combination[1].toLocaleLowerCase() === 'ireland';
-        } else {
-          return combination[1].toLocaleLowerCase().includes(input);
         }
+
+        return combination[1].toLocaleLowerCase().includes(input);
       });
       if (possibleCountries.length === 1) {
         if (text.toLocaleLowerCase() === input.slice(0, input.length - 1)) {
@@ -91,46 +88,13 @@ export default function SearchInput({ onclick }) {
       updateList([]);
     }
   };
-  const generateSelectField = () => {
-    return (
-      <ul
-        style={{
-          listStyle: 'none',
-          position: 'absolute',
-          margin: '0 auto',
-          top: '1rem',
-          left: 0,
-          zIndex: 50,
-        }}
-      >
-        {countryList.map((country) => (
-          <li
-            key={country[0]}
-            style={{
-              cursor: 'pointer',
-              background: 'grey',
-              color: 'white',
-              border: '1px solid grey',
-              borderRadius: '.5rem',
-              minWidth: '5rem',
-              width: '50%',
-              margin: '.2rem',
-              textAlign: 'center',
-              padding: '.5rem',
-            }}
-            onClick={() => {
-              setText('');
-              updateList([]);
-              setActive(false);
-              onclick(country[0]);
-            }}
-          >
-            {country[1]}
-          </li>
-        ))}
-      </ul>
-    );
+  const countrySelectAction = (id) => {
+    setText('');
+    updateList([]);
+    setActive(false);
+    onclick(id);
   };
+
   return (
     <Form
       onSubmit={(e) => {
@@ -170,7 +134,12 @@ export default function SearchInput({ onclick }) {
           {error}
         </ErrorContainer>
       ) : null}
-      {countryList.length > 0 ? generateSelectField() : null}
+      {countryList.length > 0 ? (
+        <SelectionList
+          countryList={countryList}
+          onCLickAction={countrySelectAction}
+        ></SelectionList>
+      ) : null}
     </Form>
   );
 }

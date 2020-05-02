@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PieCharts from './PieCharts';
 import styles from 'styled-components';
-import Loader from './Loader';
+import { Loader } from '../utils';
 import Count from 'react-countup';
 const Div = styles.div`
 margin:0 auto;

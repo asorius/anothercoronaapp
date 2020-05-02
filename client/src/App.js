@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import CountryCard from './components/CountryCard';
-import SearchInput from './components/SearchInput';
-import Charts from './components/Charts';
-import OverallStats from './components/OverallStats';
-import Loader from './components/Loader';
+import { CountryCard, SearchInput, Charts, OverallStats } from './components';
+import { Loader } from './utils';
 import './index.css';
 function App() {
   const [data, updateData] = useState(null);
