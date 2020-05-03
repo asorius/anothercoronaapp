@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { CountryCard, SearchInput, Charts, OverallStats } from './components';
+import {
+  CountryCard,
+  SearchInput,
+  Charts,
+  OverallStats,
+  Error,
+} from './components';
 import { Loader } from './utils';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import './index.css';
 function App() {
   const [data, updateData] = useState(null);
   const [timeline, setTimeline] = useState(null);
   const [country, setCountry] = useState(null);
   const [stats, setStats] = useState(null);
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const updateCountry = (input) => {
-    setCountry(input);
-    setLoading(true);
+    if (input) {
+      setCountry(input);
+      setLoading(true);
+    }
   };
   useEffect(() => {
     console.log('Effect iniated');
@@ -31,6 +42,7 @@ function App() {
           setLoading(false);
         } catch (e) {
           console.log(e);
+          setError(true);
         }
       };
       getData();
@@ -48,23 +60,36 @@ function App() {
       getStats();
     }
   }, [country]);
+  const errorHandle = (e) => {
+    if (e) {
+      setTimeout(() => {
+        setError(false);
+        setCountry(null);
+        setLoading(false);
+      }, 2000);
+      return <div>No data available for selected country...</div>;
+    }
+  };
   return (
-    <div
-      className="App"
-      style={{ margin: '0 auto', width: '80%', textAlign: 'center' }}
-    >
-      <SearchInput onclick={updateCountry}></SearchInput>
+    <div className="App">
+      <Container>
+        <Grid container justify="center" alignItems="center">
+          <SearchInput onSubmit={updateCountry}></SearchInput>
 
-      {loading ? (
-        <Loader></Loader>
-      ) : !loading && data && timeline && country ? (
-        <React.Fragment>
-          <CountryCard data={data}></CountryCard>
-          <Charts data={timeline}></Charts>
-        </React.Fragment>
-      ) : (
-        <OverallStats data={stats}></OverallStats>
-      )}
+          {error ? (
+            errorHandle(error)
+          ) : loading ? (
+            <Loader></Loader>
+          ) : !loading && data && timeline && country ? (
+            <React.Fragment>
+              <CountryCard data={data} timeline={timeline}></CountryCard>
+              {/* <Charts data={timeline}></Charts> */}
+            </React.Fragment>
+          ) : (
+            <OverallStats data={stats}></OverallStats>
+          )}
+        </Grid>
+      </Container>
     </div>
   );
 }
